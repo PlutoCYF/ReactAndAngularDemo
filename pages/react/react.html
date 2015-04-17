@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="../../Script/react/react.js"></script>
+      
+    <script src="../../Script/react/JSXTransformer.js"></script>
+  
+
+    
+</head>
+<body>
+    <div id="list">
+    </div>
+    <div>
+        <form name="form">
+            <ul>
+                <li><b><em>*</em>我的爱车：</b>
+                    <select id="master" name="master" class="inputborder input190 text_hui" >
+                    </select>
+                </li>
+                <li><b><em></em></b>
+                  <!--  <select id="serial" name="serial" class="inputborder input190 text_hui" >
+                    </select>-->
+                </li>
+                <li><b><em></em></b>
+                    <select id="cartype" class="inputborder input190 text_hui"  >
+                    </select>
+                </li>
+                <li><b><em>*</em>所在地：</b>
+                    <select id="select_province" class="inputborder input190 text_hui"  >
+                        <option value="0">请选择</option>
+                    </select>
+                </li>
+                <li><b><em></em></b>
+                    <select id="select_city" class="inputborder input190 text_hui"  >
+                        <option value="0">请选择</option>
+                    </select>
+                </li>
+                <li><b><em>*</em>购买时间：</b>
+                    <div class="datebox">
+                        <input id="txtBuyDateTime" type="text" class="inputborder input180" readonly="readonly"  >
+                        <a id="btnCalender" class="date" href="javascript:;">选择日期</a>
+                    </div>
+                </li>
+                <li><b><em></em>车牌号：</b>
+                    <select  >
+                        <option value="0">请选择</option>
+                    </select>
+                    <input id="carnum" type="text" class="inputborder input95" name="carnum"   />
+
+                </li>
+            </ul>
+
+            <div class="submit">
+                <button  >提交</button>
+                <input id="btnSubmit" type="button" value="提交" class="input_orange "  />
+            </div>
+        </form>
+    </div>
+    <script type="text/jsx">
+
+     var CarList = React.createClass({
+    render: function() {
+        var createItem = function(item) {
+            return  (
+                <div>
+                车名：{item.name},车牌号：{item.num}
+                </div>
+            );
+        };
+        return (<div>{this.props.Cars.map(createItem)}</div>);
+    }
+});
+var cars = [
+    {name:"汽车1",num:"123123"},
+    {name:"汽车1",num:"123123"},
+    {name:"汽车1",num:"123123"},
+    {name:"汽车1",num:"123123"}
+];
+React.render(<CarList Cars={cars} />, document.getElementById("list"));
+
+    </script>
+</body>
+</html>

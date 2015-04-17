@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <script src="../../Script/angular/angular.min.js"></script>
+</head>
+<body ng-app="initExample">
+    <div ng-controller="formControl">
+        <div ng-repeat="car in carlist">
+            <div>车名：{{car.name}},车牌号：{{car.num}}</div>
+        </div>
+    </div>
+    <div ng-controller="formControl">
+        <form  name="form">
+            <ul>
+                <li><b><em>*</em>我的爱车：</b>
+                    <select id="master" name="master" class="inputborder input190 text_hui" ng-model="model.master">
+                    </select>
+                </li>
+                <li><b><em></em></b>
+                    <select id="serial" name="serial" class="inputborder input190 text_hui" ng-model="model.serial">
+                    </select>
+                </li>
+                <li><b><em></em></b>
+                    <select id="cartype" class="inputborder input190 text_hui" ng-model="model.cartype">
+                    </select>
+                </li>
+                <li><b><em>*</em>所在地：</b>
+                    <select id="select_province" class="inputborder input190 text_hui" ng-model="model.province">
+                        <option value="0">请选择</option>
+                    </select>
+                </li>
+                <li><b><em></em></b>
+                    <select id="select_city" class="inputborder input190 text_hui" ng-model="model.city">
+                        <option value="0">请选择</option>
+                    </select>
+                </li>
+                <li><b><em>*</em>购买时间：</b>
+                    <div class="datebox">
+                        <input id="txtBuyDateTime" type="text" class="inputborder input180" readonly="readonly" ng-model="model.time">
+                        <a id="btnCalender" class="date" href="javascript:;">选择日期</a>
+                    </div>
+                </li>
+                <li><b><em></em>车牌号：</b>
+                    <select ng-model="model.numtype">
+                        <option value="0">请选择</option>
+                    </select>
+                    <input id="carnum" type="text" class="inputborder input95" name="carnum" ng-model="model.carnum" uniqueinteger="model.carnum" />
+                      <span ng-show="form.carnum.$pending.uniqueinteger">Checking if this carnum is available...</span>
+                       <span ng-show="form.carnum.$error.uniqueinteger">This carnum is not available!</span>
+                </li>
+            </ul>
+            <div>
+                model.master:{{model.master}}
+
+            </div>
+            <div>
+                model.serial:{{model.serial}}
+
+            </div>
+            <div>
+                model.cartype:{{model.cartype}}
+
+            </div>
+            <div>
+                model.province:{{model.province}}
+
+            </div>
+            <div>
+                model.city:{{model.city}}
+
+            </div>
+            <div>
+                model.time:{{model.time}}
+
+            </div>
+            <div>
+                model.numtype:{{model.numtype}}
+
+            </div>
+            <div>
+                model.carnum:{{model.carnum}}
+
+            </div>
+            <div class="submit">
+                <button ng-click="submit()">提交</button>
+                <input id="btnSubmit" type="button" value="提交" class="input_orange " ng-click="submit()" />
+            </div>
+        </form>
+
+    </div>
+    <script type="text/javascript" src="http://image.bitautoimg.com/carchannel/jsnew/dropdownlist.js?v=3.0"></script>
+    <script type="text/javascript">
+        var select = new BindSelect({
+            container: {
+                master: 'master',
+                serial: 'serial',
+                cartype: 'cartype'
+            },
+            include: {
+                serial: "1"
+            },
+            datatype: 0,
+            dvalue: 0
+        });
+        select.BindList();
+
+        angular.module('initExample', [])
+           
+            .controller('formControl', ['$scope', '$http', function ($scope, $http) {
+                $scope.carlist = [{ name: "car1", num: "京A123456" }, { name: "car2", num: "京A234567" }];
+                $scope.model = {};
+                $scope.submit = function () {
+                    $http.get('http://www.baidu.com').success(successCallback).error(function(data, status) {
+                        console.log(status);
+                        
+                    });
+                    console.log($scope.model);
+                }
+                function successCallback(data) {
+                    console.log("success");
+                }
+            }])
+            .directive('uniqueinteger', function ($q, $http) {
+                return {
+                    require: 'ngModel',
+                    link: function(scope, elm, attrs, ctrl) {
+                        ctrl.$asyncValidators.uniqueinteger = function (modelValue, viewValue) {
+                            if (ctrl.$isEmpty(modelValue)) {
+                                // consider empty model valid
+                                return $q.when();
+                            }
+                            var def = $q.defer();
+                            $http.get("/test.html").success(function () { def.resolve(); }).error(function () {
+                                def.reject();
+                            });
+
+                            return def.promise;
+
+                        }
+                    }
+                    
+                }
+            })
+        ;
+    </script>
+</body>
+</html>

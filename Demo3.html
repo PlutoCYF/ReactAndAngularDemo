@@ -1,0 +1,15 @@
+﻿<!doctype html>
+<html ng-app>
+  <head>
+    
+      
+      <script src="Script/angular/angular.js"></script>
+  </head>
+  <body>
+    <div ng-init="list = ['Chrome', 'Safari', 'Firefox', 'IE'] ">
+      Number formatting: {{ 1234567890 | number }} <br>
+      array filtering <input ng-model="predicate"> 
+      {{ list | filter:predicate | json }}
+    </div>
+  </body>
+</html>

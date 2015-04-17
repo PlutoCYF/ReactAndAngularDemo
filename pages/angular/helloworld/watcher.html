@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+       <script src="../../../Script/angular/angular.min.js"></script>
+</head>
+<body ng-app='watch'>
+    <input ng-model='name' type='text'/>
+    <div>change count: {{count}}</div>
+    <script>
+        angular.module('watch', [])
+                     .run(['$rootScope', function ($rootScope) {
+                         $rootScope.count = 0;
+                         $rootScope.name = 'Alfred';
+                         $rootScope.$watch('name', function () {
+                             $rootScope.count++;
+                            // $rootScope.name = 'Alfred' + $rootScope.count;
+                         })
+                     }]);
+    </script>
+</body>
+</html>
+
